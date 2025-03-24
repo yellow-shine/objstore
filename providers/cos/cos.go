@@ -139,13 +139,25 @@ func NewBucketWithConfig(logger log.Logger, config Config, component string, wra
 	if wrapRoundtripper != nil {
 		rt = wrapRoundtripper(rt)
 	}
-	client := cos.NewClient(b, &http.Client{
-		Transport: &cos.AuthorizationTransport{
-			SecretID:  config.SecretId,
-			SecretKey: config.SecretKey,
-			Transport: rt,
-		},
-	})
+	var client *cos.Client
+
+	// use AuthorizationTransport if SecretId is set
+	if config.SecretId != "" {
+		client = cos.NewClient(b, &http.Client{
+			Transport: &cos.AuthorizationTransport{
+				SecretID:  config.SecretId,
+				SecretKey: config.SecretKey,
+				Transport: rt,
+			},
+		})
+	} else {
+		// use OidcCredentialTransport if SecretId is not set
+		client = cos.NewClient(b, &http.Client{
+			Transport: &cos.OidcCredentialTransport{
+				Transport: rt,
+			},
+		})
+	}
 
 	if config.MaxRetries > 0 {
 		client.Conf.RetryOpt.Count = config.MaxRetries
