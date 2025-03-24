@@ -108,7 +108,7 @@ func NewBucketWithConfig(logger log.Logger, config Config, component string, wra
 			return nil, errors.Wrap(err, "parse endpoint")
 		}
 	} else {
-		bucketURL, err = cos.NewBucketURL(fmt.Sprintf("%s-%s", config.Bucket, config.AppId), config.Region, true)
+		bucketURL, err = cos.NewBucketURL(config.Bucket, config.Region, true)
 		if err != nil {
 			return nil, errors.Wrap(err, "create bucket")
 		}
