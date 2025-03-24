@@ -65,22 +65,8 @@ type Config struct {
 
 // Validate checks to see if mandatory cos config options are set.
 func (conf *Config) validate() error {
-	if conf.Endpoint != "" {
-		if _, err := url.Parse(conf.Endpoint); err != nil {
-			return errors.Wrap(err, "parse endpoint")
-		}
-		if conf.SecretId == "" ||
-			conf.SecretKey == "" {
-			return errors.New("secret_id or secret_key is empty")
-		}
-		return nil
-	}
-	if conf.Bucket == "" ||
-		conf.AppId == "" ||
-		conf.Region == "" ||
-		conf.SecretId == "" ||
-		conf.SecretKey == "" {
-		return errors.New("insufficient cos configuration information")
+	if _, err := url.Parse(conf.Endpoint); err != nil {
+		return errors.Wrap(err, "parse endpoint")
 	}
 	return nil
 }
@@ -122,7 +108,7 @@ func NewBucketWithConfig(logger log.Logger, config Config, component string, wra
 			return nil, errors.Wrap(err, "parse endpoint")
 		}
 	} else {
-		bucketURL, err = cos.NewBucketURL(fmt.Sprintf("%s-%s", config.Bucket, config.AppId), config.Region, true)
+		bucketURL, err = cos.NewBucketURL(config.Bucket, config.Region, true)
 		if err != nil {
 			return nil, errors.Wrap(err, "create bucket")
 		}
@@ -139,13 +125,25 @@ func NewBucketWithConfig(logger log.Logger, config Config, component string, wra
 	if wrapRoundtripper != nil {
 		rt = wrapRoundtripper(rt)
 	}
-	client := cos.NewClient(b, &http.Client{
-		Transport: &cos.AuthorizationTransport{
-			SecretID:  config.SecretId,
-			SecretKey: config.SecretKey,
-			Transport: rt,
-		},
-	})
+	var client *cos.Client
+
+	// use AuthorizationTransport if SecretId is set
+	if config.SecretId != "" {
+		client = cos.NewClient(b, &http.Client{
+			Transport: &cos.AuthorizationTransport{
+				SecretID:  config.SecretId,
+				SecretKey: config.SecretKey,
+				Transport: rt,
+			},
+		})
+	} else {
+		// use OidcCredentialTransport if SecretId is not set
+		client = cos.NewClient(b, &http.Client{
+			Transport: &cos.OidcCredentialTransport{
+				Transport: rt,
+			},
+		})
+	}
 
 	if config.MaxRetries > 0 {
 		client.Conf.RetryOpt.Count = config.MaxRetries
