@@ -65,22 +65,8 @@ type Config struct {
 
 // Validate checks to see if mandatory cos config options are set.
 func (conf *Config) validate() error {
-	if conf.Endpoint != "" {
-		if _, err := url.Parse(conf.Endpoint); err != nil {
-			return errors.Wrap(err, "parse endpoint")
-		}
-		if conf.SecretId == "" ||
-			conf.SecretKey == "" {
-			return errors.New("secret_id or secret_key is empty")
-		}
-		return nil
-	}
-	if conf.Bucket == "" ||
-		conf.AppId == "" ||
-		conf.Region == "" ||
-		conf.SecretId == "" ||
-		conf.SecretKey == "" {
-		return errors.New("insufficient cos configuration information")
+	if _, err := url.Parse(conf.Endpoint); err != nil {
+		return errors.Wrap(err, "parse endpoint")
 	}
 	return nil
 }
