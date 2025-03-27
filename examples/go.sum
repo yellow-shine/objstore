@@ -61,8 +61,8 @@ github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common v1.0.1129/go.mod
 github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/kms v1.0.563/go.mod h1:uom4Nvi9W+Qkom0exYiJ9VWJjXwyxtPYTkKkaLMlfE0=
 github.com/yellow-shine/cos-go-sdk-v5 v0.0.0-20250324084202-fd0081c12590 h1:nnofH89NxQL7GkJOe2VUcJ7EujrltWzRg0l70/b9vC0=
 github.com/yellow-shine/cos-go-sdk-v5 v0.0.0-20250324084202-fd0081c12590/go.mod h1:I9XIodH08iX9hej/Nz4KfhAzXr3FzSGsbZNbbx8rtw4=
-github.com/yellow-shine/objstore v0.0.0-20250325120849-1036980b7796 h1:2nAWRkza81BPqleVZ5pH6gajzeag7wu1G+LJSsP0Pn4=
-github.com/yellow-shine/objstore v0.0.0-20250325120849-1036980b7796/go.mod h1:M5afnwsM/hw5TbE4JNgoPcb17fSRuCACQHU4FgMKsfE=
+github.com/yellow-shine/objstore v0.0.0-20250327034657-2f7e21e02458 h1:1krUyG14dxBNkJHH3qf8BVNnlwX7fRHLAfq12gV5xXU=
+github.com/yellow-shine/objstore v0.0.0-20250327034657-2f7e21e02458/go.mod h1:M5afnwsM/hw5TbE4JNgoPcb17fSRuCACQHU4FgMKsfE=
 go.uber.org/atomic v1.9.0 h1:ECmE8Bn/WFTYwEW/bpKD3M8VtR/zQVbavAoalC1PYyE=
 go.uber.org/atomic v1.9.0/go.mod h1:fEN4uk6kAWBTFdckzkM89CLk9XfWZrxpCo0nPH17wJc=
 golang.org/x/sync v0.0.0-20181221193216-37e7f081c4d4/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=

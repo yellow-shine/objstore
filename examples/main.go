@@ -16,7 +16,9 @@ func main() {
 		cos.Config{
 			// Bucket:    "test-1253846545",
 			// Region:    "ap-guangzhou",
-			Endpoint:  "https://liang-1318287928.cos.ap-shanghai.myqcloud.com",
+			Bucket:    "liang-1318287928",
+			Region:    "ap-shanghai",
+			// Endpoint:  "https://liang-1318287928.cos.ap-shanghai.myqcloud.com",
 		},
 		"test",
 		nil,
@@ -26,7 +28,7 @@ func main() {
 	}
 
 
-	err = Bucket.Upload(context.Background(), "test1.txt", strings.NewReader("test1"))
+	err = Bucket.Upload(context.Background(), "testr2.txt", strings.NewReader("test1"))
 	if err != nil {
 		panic(err)
 	}

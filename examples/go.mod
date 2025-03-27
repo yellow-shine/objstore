@@ -35,6 +35,6 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
-replace github.com/thanos-io/objstore => github.com/yellow-shine/objstore v0.0.0-20250325120849-1036980b7796
+replace github.com/thanos-io/objstore => github.com/yellow-shine/objstore v0.0.0-20250327034657-2f7e21e02458
 
 replace github.com/tencentyun/cos-go-sdk-v5 => github.com/yellow-shine/cos-go-sdk-v5 v0.0.0-20250324084202-fd0081c12590
